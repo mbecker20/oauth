@@ -1,0 +1,13 @@
+{
+  "name": "fastify-oauth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "fastify": "^3.27.4",
+    "fastify-oauth2": "^4.5.0"
+  }
+}
