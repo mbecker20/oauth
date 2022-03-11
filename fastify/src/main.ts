@@ -1,14 +1,23 @@
-import Fastify from "fastify";
+import fastify from "fastify";
+import fastifyCors from "fastify-cors";
 import { PORT } from "./config";
+import routes from "./routes";
 
-export const fastify = Fastify({
+const app = fastify({
   logger: true,
 });
 
-fastify.listen(PORT, function (err, address) {
+app.register(fastifyCors, {
+  origin: "*",
+});
+
+// attach the routes to the app
+routes(app);
+
+app.listen(PORT, function (err, address) {
   if (err) {
-    fastify.log.error(err);
+    app.log.error(err);
     process.exit(1);
   }
-  fastify.log.info(`server listening on ${address}`);
+  app.log.info(`server listening on ${address}`);
 });

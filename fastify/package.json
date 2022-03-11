@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "fastify": "^3.27.4",
+    "fastify-cors": "^6.0.3",
     "fastify-oauth2": "^4.5.0",
+    "fastify-static": "^4.5.0",
     "mongoose": "^6.2.5"
   }
 }
