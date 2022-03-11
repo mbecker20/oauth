@@ -1,11 +1,5 @@
-import axios from "axios";
-
-const URL = "http://localhost:2020";
+import { URL } from ".";
 
 export function loginGithub() {
-	axios.get(`${URL}/login/github`, {
-		headers: {
-			"Access-Control-Allow-Origin": "*"
-		}
-	});
+	window.location.replace(`${URL}/login/github`);
 }

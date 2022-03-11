@@ -9,6 +9,7 @@ const app = fastify({
 
 app.register(fastifyCors, {
   origin: "*",
+  methods: ["GET", "OPTIONS"]
 });
 
 // attach the routes to the app
