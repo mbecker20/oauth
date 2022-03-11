@@ -2,11 +2,10 @@
 import { render } from 'solid-js/web';
 
 import './index.css';
-import App from './App';
-import { readJWTFromUrlParams } from './helpers';
+import App from './components/App/App';
+import Client from './util/client';
 
 export const URL = "http://localhost:2020";
-
-console.log(readJWTFromUrlParams());
+export const client = new Client(URL);
 
 render(() => <App />, document.getElementById('root') as HTMLElement);

@@ -32,7 +32,7 @@ export default function (app: FastifyInstance) {
     const existingUser = await app.users.findOne({ username: profile.username });
     if (existingUser) {
       const jwt = app.jwt.sign(
-        { name: existingUser.username, id: existingUser._id.toString() },
+        { id: existingUser._id.toString() },
         { expiresIn: token.expires_in }
       );
       res.redirect(`http://localhost:${PORT}/?token=${jwt}`);
@@ -45,7 +45,7 @@ export default function (app: FastifyInstance) {
         email,
       });
       const jwt = app.jwt.sign(
-        { name: createdUser.username, id: createdUser._id.toString() },
+        { id: createdUser._id.toString() },
         { expiresIn: token.expires_in }
       );
       res.redirect(`http://localhost:${PORT}/?token=${jwt}`);
