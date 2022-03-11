@@ -1,5 +1,6 @@
 import axios from "axios";
 import { FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 import fastifyOauth2, { OAuth2Namespace } from "fastify-oauth2";
 import { PORT, SECRETS } from "../config";
 
@@ -9,7 +10,7 @@ declare module "fastify" {
   }
 }
 
-export default function (app: FastifyInstance) {
+const oauth = fp((app: FastifyInstance, _: {}, done: () => void) => {
   app.register(fastifyOauth2, {
     name: "github",
     scope: ["user:email"], // empty for only basic access to acct, ie info that is is already public about your acct.
@@ -51,7 +52,9 @@ export default function (app: FastifyInstance) {
       res.redirect(`http://localhost:${PORT}/?token=${jwt}`);
     }
   });
-}
+
+  done();
+});
 
 async function getGithubProfile(token: string) {
   const profile = await axios
@@ -78,3 +81,5 @@ async function getGithubEmail(token: string): Promise<string | undefined> {
     .then(({ data }) => data);
   return emails[0]?.email;
 }
+
+export default oauth;

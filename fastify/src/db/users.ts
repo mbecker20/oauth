@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 import { Schema, Model } from "mongoose";
 
 declare module "fastify" {
@@ -7,13 +8,17 @@ declare module "fastify" {
   }
 }
 
-export default function (app: FastifyInstance) {
-	const schema = new Schema({
+const users = fp((app: FastifyInstance, _: {}, done: () => void) => {
+  const schema = new Schema({
     username: { type: String, unique: true, index: true },
-		email: String,
-		avatar: String,
-		githubID: String,
+    email: String,
+    avatar: String,
+    githubID: String,
   });
 
-	app.users = app.mongoose.model("User", schema);
-}
+  app.users = app.mongoose.model("User", schema);
+
+	done();
+});
+
+export default users;

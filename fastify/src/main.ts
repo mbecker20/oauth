@@ -6,16 +6,11 @@ import routes from "./routes";
 
 const app = fastify({
   logger: true,
-});
-
-app.register(fastifyCors);
-
-// attach db (mongoose)
-db(app);
-
-// attach the routes to the app
-routes(app);
-
+})
+  .register(fastifyCors)
+  .register(db)
+  .register(routes);
+  
 app.listen(PORT, function (err) {
   if (err) {
     app.log.error(err);

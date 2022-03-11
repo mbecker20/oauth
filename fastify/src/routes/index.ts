@@ -1,12 +1,18 @@
 import { FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 import frontend from "./frontend";
 import hello from "./hello";
 import jwt from "./jwt";
 import oauth from "./oauth";
 
-export default function (app: FastifyInstance) {
-  frontend(app);
-  oauth(app);
-  jwt(app);
-  hello(app);
-}
+const routes = fp((app: FastifyInstance, _: {}, done: () => void) => {
+  app
+    .register(frontend)
+    .register(oauth)
+    .register(jwt)
+    .register(hello);
+
+  done();
+});
+
+export default routes;

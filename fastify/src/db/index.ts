@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+import fp from "fastify-plugin";
 import mongoose from "mongoose"
 import users from "./users";
 
@@ -8,9 +9,13 @@ declare module "fastify" {
   }
 }
 
-export default function (app: FastifyInstance) {
+const db = fp((app: FastifyInstance, _: {}, done: () => void) => {
   mongoose.connect("mongodb://localhost:27017");
   app.mongoose = mongoose;
+
+  app.register(users);
   
-  users(app);
-}
+  done();
+});
+
+export default db;

@@ -1,4 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import fp from "fastify-plugin";
 import fastifyJwt from "fastify-jwt";
 import { SECRETS } from "../config";
 
@@ -17,7 +18,7 @@ declare module "fastify-jwt" {
   }
 }
 
-export default function (app: FastifyInstance) {
+const jwt = fp((app: FastifyInstance, _: {}, done: () => void) => {
   app.register(fastifyJwt, {
     secret: SECRETS.JWT.SECRET,
   });
@@ -36,6 +37,10 @@ export default function (app: FastifyInstance) {
   app.get("/user", { onRequest: [app.authenticate] }, async (req, res) => {
     const id = req.user.id;
     const user = await app.users.findById(id);
-		res.send(user);
+    res.send(user);
   });
-}
+
+  done();
+});
+
+export default jwt;
