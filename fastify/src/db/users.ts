@@ -16,7 +16,7 @@ const users = fp((app: FastifyInstance, _: {}, done: () => void) => {
     githubID: String,
   });
 
-  app.users = app.mongoose.model("User", schema);
+  app.decorate("users", app.mongoose.model("User", schema));
 
 	done();
 });
