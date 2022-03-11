@@ -4,7 +4,7 @@ import hello from "./hello";
 import jwt from "./jwt";
 import oauth from "./oauth";
 
-export default function routes(app: FastifyInstance) {
+export default function (app: FastifyInstance) {
   frontend(app);
   oauth(app);
   jwt(app);

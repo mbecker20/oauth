@@ -8,12 +8,9 @@ declare module "fastify" {
   }
 }
 
-export default function(app: FastifyInstance) {
+export default function (app: FastifyInstance) {
 	app.register(fastifyJwt, {
-    secret: {
-      public: SECRETS.GITHUB.ID,
-      private: SECRETS.GITHUB.SECRET,
-    },
+    secret: SECRETS.JWT.SECRET,
   });
 
 	app.decorate("authenticate", async (req, res) => {
