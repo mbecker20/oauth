@@ -10,8 +10,6 @@ declare module "fastify-oauth2" {
   }
 }
 
-const decode = createDecoder();
-
 const google = fp((app: FastifyInstance, _: {}, done: () => void) => {
   app.register(fastifyOauth2, {
     name: "google",
@@ -60,6 +58,8 @@ const google = fp((app: FastifyInstance, _: {}, done: () => void) => {
 
   done();
 });
+
+const decode = createDecoder();
 
 export function getGoogleProfile(id_token: string) {
   const profile = decode(id_token);
