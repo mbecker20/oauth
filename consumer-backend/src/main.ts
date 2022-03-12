@@ -11,9 +11,10 @@ const app = fastify({
   .register(db)
   .register(routes);
 
-app.listen(PORT, (err) => {
+app.listen(PORT, (err, address) => {
   if (err) {
     app.log.error(err);
     process.exit(1);
   }
+  console.log(`consumer-backend listening at ${address}`);
 });

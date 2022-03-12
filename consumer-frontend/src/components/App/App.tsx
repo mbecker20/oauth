@@ -10,6 +10,7 @@ import styles from "./App.module.css";
 import UserInfo from "../UserInfo";
 import Grid from "../util/layout/Grid";
 import { manualLogin } from "../../util/helpers";
+import { User } from "@oauth2/types";
 
 const App: Component = () => {
   const [user] = createResource(() => client.getUser());

@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 import mongoose, { Model } from "mongoose"
 import users from "./users";
+import { User } from "@oauth2/types";
 
 declare module "fastify" {
   interface FastifyInstance {

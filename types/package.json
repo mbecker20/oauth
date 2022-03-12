@@ -1,0 +1,10 @@
+{
+  "name": "@oauth2/types",
+  "version": "1.0.0",
+  "main": "types.d.ts",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  }
+}

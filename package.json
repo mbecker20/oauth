@@ -1,0 +1,24 @@
+{
+  "name": "oauth2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "full-start": "yarn build-frontends && yarn start-backends",
+    "start-auth": "cd auth-backend && yarn start",
+    "start-consumer": "cd consumer-backend && yarn start",
+    "start-backends": "yarn start-auth & yarn start-consumer",
+    "build-frontends": "cd auth-frontend && yarn build & cd consumer-frontend && yarn build"
+  },
+  "workspaces": [
+    "auth-backend",
+    "auth-frontend",
+    "consumer-backend",
+    "consumer-frontend",
+    "types"
+  ],
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  }
+}

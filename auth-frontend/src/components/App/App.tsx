@@ -4,6 +4,7 @@ import styles from "./App.module.css";
 import { loginGithub, loginGoogle } from "../../util/helpers";
 import UserInfo from "../UserInfo";
 import Grid from "../util/layout/Grid";
+import { User } from "@oauth2/types"
 
 const App: Component = () => {
   const [user, { mutate }] = createResource(() => client.getUser());
