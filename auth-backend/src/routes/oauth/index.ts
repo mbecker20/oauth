@@ -5,7 +5,7 @@ import google from "./google";
 
 const oauth = fp((app: FastifyInstance, _: {}, done: () => void) => {
 	app
-		.register(github(undefined))
+		.register(github())
 		.register(github("consumer"))
 		.register(google())
 		.register(google("consumer"));
