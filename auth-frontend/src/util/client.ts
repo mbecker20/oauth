@@ -5,11 +5,19 @@ export default class Client {
   token = localStorage.getItem("access_token");
 
   constructor(private baseURL: string) {
-		const params = location.search.split("=");
-    if (params[0] === "?token") {
-      history.replaceState({}, "", URL);
-			this.token = params[1];
+		const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    const redirect = params.get("redirect")
+    if (token) {
+			this.token = token;
       localStorage.setItem("access_token", this.token);
+      history.replaceState(
+        {},
+        "",
+        `${URL}${redirect ? `/?redirect=${redirect}` : ""}`
+      );
+    } else if (params.get("logout") === "true") {
+      this.logout();
     }
 	}
 

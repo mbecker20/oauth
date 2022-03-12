@@ -10,9 +10,10 @@ export function getAuthProvider(user: User) {
 }
 
 export function getRedirectTo() {
-  const params = location.search.split("=");
-  if (params[0] === "?redirect") {
-    if (params[1] === "consumer") {
+  const params = new URLSearchParams(location.search);
+  const redirect = params.get("redirect");
+  if (redirect) {
+    if (redirect === "consumer") {
       return {
         service: "consumer",
         url: "http://localhost:3000"

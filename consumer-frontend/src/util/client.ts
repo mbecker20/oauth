@@ -5,17 +5,19 @@ export default class Client {
   token = localStorage.getItem("access_token");
 
   constructor(private baseURL: string) {
-		const params = location.search.split("=");
-    if (params[0] === "?token") {
+		const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+    if (token) {
       history.replaceState({}, "", URL);
-			this.token = params[1];
+			this.token = token;
       localStorage.setItem("access_token", this.token);
     }
 	}
 
   logout() {
-    window.localStorage.removeItem("access_token");
+    localStorage.removeItem("access_token");
     this.token = null;
+    location.replace(AUTH_REDIRECT + "&logout=true")
   }
 
   async getUser(): Promise<User | false> {
@@ -26,7 +28,6 @@ export default class Client {
         return await this.get("/user");
       } catch {
         this.logout();
-        location.replace(AUTH_REDIRECT);
         return false;
       }
     } else {

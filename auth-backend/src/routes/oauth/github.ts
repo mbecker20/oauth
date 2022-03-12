@@ -4,7 +4,7 @@ import fp from "fastify-plugin";
 import fastifyOauth2 from "fastify-oauth2";
 import { HOST, SECRETS } from "../../config";
 
-const github = (service?: string, serviceUrl = HOST) =>
+const github = (service?: string) =>
   fp((app: FastifyInstance, _: {}, done: () => void) => {
     const name = `github${service ? "-" + service : ""}`;
     app.register(fastifyOauth2, {
@@ -40,7 +40,9 @@ const github = (service?: string, serviceUrl = HOST) =>
             { id: existingUser._id.toString() },
             { expiresIn: token.expires_in }
           );
-          res.redirect(`${serviceUrl}/?token=${jwt}`);
+          res.redirect(
+            `${HOST}/?token=${jwt}${service ? `&redirect=${service}` : ""}`
+          );
         } else {
           const email = await getGithubEmail(token.access_token);
           const createdUser = await app.users.create({
@@ -51,7 +53,7 @@ const github = (service?: string, serviceUrl = HOST) =>
             { id: createdUser._id.toString() },
             { expiresIn: token.expires_in }
           );
-          res.redirect(`${serviceUrl}/?token=${jwt}`);
+          res.redirect(`${HOST}/?token=${jwt}${service ? `&redirect=${service}` : ""}`);
         }
       }
     );

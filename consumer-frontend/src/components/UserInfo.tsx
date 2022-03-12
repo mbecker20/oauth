@@ -1,9 +1,10 @@
 import { Component, Show } from "solid-js";
+import { AUTH_REDIRECT, client } from "..";
 import { getAuthProvider } from "../util/helpers";
 import Flex from "./util/layout/Flex";
 import Grid from "./util/layout/Grid";
 
-const UserInfo: Component<{ user: User; logout: () => void }> = (p) => {
+const UserInfo: Component<{ user: User }> = (p) => {
   return (
     <Grid style={{ "font-size": "2rem" }}>
       <div>provider: {getAuthProvider(p.user)}</div>
@@ -14,7 +15,8 @@ const UserInfo: Component<{ user: User; logout: () => void }> = (p) => {
         </Show>
       </Flex>
       <div>email: {p.user.email}</div>
-      <button style={{ width: "100%" }} onClick={p.logout}>
+      <button style={{ width: "100%" }} onClick={() => location.replace(AUTH_REDIRECT)}>refresh user</button>
+      <button style={{ width: "100%" }} onClick={() => client.logout()}>
         logout
       </button>
     </Grid>

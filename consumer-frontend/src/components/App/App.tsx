@@ -1,12 +1,24 @@
-import { Component, createResource, Match, Switch } from "solid-js";
-import { client } from "../..";
+import {
+  Component,
+  createEffect,
+  createResource,
+  Match,
+  Switch,
+} from "solid-js";
+import { AUTH_REDIRECT, client } from "../..";
 import styles from "./App.module.css";
 import UserInfo from "../UserInfo";
 import Grid from "../util/layout/Grid";
 import { manualLogin } from "../../util/helpers";
 
 const App: Component = () => {
-  const [user, { mutate }] = createResource(() => client.getUser());
+  const [user] = createResource(() => client.getUser());
+
+  createEffect(() => {
+    if (user() === false) {
+      location.replace(AUTH_REDIRECT);
+    }
+  });
 
   return (
     <div class={styles.App}>
@@ -14,13 +26,7 @@ const App: Component = () => {
         <div>Consumer</div>
         <Switch>
           <Match when={user()}>
-            <UserInfo
-              user={user() as User}
-              logout={() => {
-                client.logout();
-                mutate(false);
-              }}
-            />
+            <UserInfo user={user() as User} />
           </Match>
           <Match when={user() === undefined}>
             <div>...</div>

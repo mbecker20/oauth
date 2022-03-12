@@ -6,9 +6,9 @@ import google from "./google";
 const oauth = fp((app: FastifyInstance, _: {}, done: () => void) => {
 	app
 		.register(github(undefined))
-		.register(github("consumer", "http://localhost:3000"))
+		.register(github("consumer"))
 		.register(google())
-		.register(google("consumer", "http://localhost:3000"));
+		.register(google("consumer"));
 
 	done();
 });

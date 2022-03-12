@@ -10,7 +10,7 @@ declare module "fastify-oauth2" {
   }
 }
 
-const google = (service?: string, serviceUrl = HOST) =>
+const google = (service?: string) =>
   fp((app: FastifyInstance, _: {}, done: () => void) => {
     const name = `google${service ? "-" + service : ""}`;
     app.register(fastifyOauth2, {
@@ -52,7 +52,9 @@ const google = (service?: string, serviceUrl = HOST) =>
             { id: existingUser._id.toString() },
             { expiresIn: token.expires_in }
           );
-          res.redirect(`${serviceUrl}/?token=${jwt}`);
+          res.redirect(
+            `${HOST}/?token=${jwt}${service ? `&redirect=${service}` : ""}`
+          );
         } else {
           // create a user then create jwt with new users _id
           const createdUser = await app.users.create(profile);
@@ -60,7 +62,9 @@ const google = (service?: string, serviceUrl = HOST) =>
             { id: createdUser._id.toString() },
             { expiresIn: token.expires_in }
           );
-          res.redirect(`${serviceUrl}/?token=${jwt}`);
+          res.redirect(
+            `${HOST}/?token=${jwt}${service ? `&redirect=${service}` : ""}`
+          );
         }
       }
     );
