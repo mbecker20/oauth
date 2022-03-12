@@ -1,4 +1,4 @@
-import { Component, Match, Show, Switch } from "solid-js";
+import { Component, Show } from "solid-js";
 import { getAuthProvider } from "../util/helpers";
 import Flex from "./util/layout/Flex";
 import Grid from "./util/layout/Grid";
