@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import fastifyOauth2 from "fastify-oauth2";
 import fp from "fastify-plugin";
 import { createDecoder } from "fast-jwt"
-import { PORT, SECRETS } from "../../config";
+import { HOST, SECRETS } from "../../config";
 
 declare module "fastify-oauth2" {
   interface OAuth2Token {
@@ -29,7 +29,7 @@ const google = fp((app: FastifyInstance, _: {}, done: () => void) => {
     // location.replace this route to redirect to google
     startRedirectPath: "/login/google",
     // google redirects here after user logs in
-    callbackUri: "http://localhost:2020/login/google/callback",
+    callbackUri: `${HOST}/login/google/callback`,
   });
 
   app.get("/login/google/callback", async (req, res) => {
@@ -46,7 +46,7 @@ const google = fp((app: FastifyInstance, _: {}, done: () => void) => {
         { id: existingUser._id.toString() },
         { expiresIn: token.expires_in }
       );
-      res.redirect(`http://localhost:${PORT}/?token=${jwt}`);
+      res.redirect(`${HOST}/?token=${jwt}`);
     } else {
       // create a user then create jwt with new users _id
       const createdUser = await app.users.create(profile);
@@ -54,7 +54,7 @@ const google = fp((app: FastifyInstance, _: {}, done: () => void) => {
         { id: createdUser._id.toString() },
         { expiresIn: token.expires_in }
       );
-      res.redirect(`http://localhost:${PORT}/?token=${jwt}`);
+      res.redirect(`${HOST}/?token=${jwt}`);
     }
   });
 

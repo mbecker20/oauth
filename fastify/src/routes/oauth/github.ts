@@ -2,7 +2,7 @@ import axios from "axios";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 import fastifyOauth2 from "fastify-oauth2";
-import { PORT, SECRETS } from "../../config";
+import { HOST, SECRETS } from "../../config";
 
 const github = fp((app: FastifyInstance, _: {}, done: () => void) => {
   app.register(fastifyOauth2, {
@@ -18,7 +18,7 @@ const github = fp((app: FastifyInstance, _: {}, done: () => void) => {
     // location.replace this route to redirect to github
     startRedirectPath: "/login/github",
     // github redirects here after user logs in
-    callbackUri: "http://localhost:2020/login/github/callback",
+    callbackUri: `${HOST}/login/github/callback`,
   });
 
   app.get("/login/github/callback", async (req, res) => {
@@ -32,7 +32,7 @@ const github = fp((app: FastifyInstance, _: {}, done: () => void) => {
         { id: existingUser._id.toString() },
         { expiresIn: token.expires_in }
       );
-      res.redirect(`http://localhost:${PORT}/?token=${jwt}`);
+      res.redirect(`${HOST}/?token=${jwt}`);
     } else {
       const email = await getGithubEmail(token.access_token);
       const createdUser = await app.users.create({
@@ -43,7 +43,7 @@ const github = fp((app: FastifyInstance, _: {}, done: () => void) => {
         { id: createdUser._id.toString() },
         { expiresIn: token.expires_in }
       );
-      res.redirect(`http://localhost:${PORT}/?token=${jwt}`);
+      res.redirect(`${HOST}/?token=${jwt}`);
     }
   });
 
