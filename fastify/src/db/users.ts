@@ -1,12 +1,6 @@
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
-import { Schema, Model } from "mongoose";
-
-declare module "fastify" {
-  interface FastifyInstance {
-    users: Model<User>;
-  }
-}
+import { Schema } from "mongoose";
 
 const users = fp((app: FastifyInstance, _: {}, done: () => void) => {
   const schema = new Schema({
