@@ -1,8 +1,9 @@
-import { Component, createResource, Match, Show, Switch } from "solid-js";
+import { Component, createResource, Match, Switch } from "solid-js";
 import { client } from "../..";
 import styles from "./App.module.css";
-import { loginGithub } from "../../util/query";
+import { loginGithub, loginGoogle } from "../../util/query";
 import UserInfo from "../UserInfo";
+import Grid from "../util/layout/Grid";
 
 const App: Component = () => {
   const [user, { mutate }] = createResource(() => client.getUser());
@@ -23,7 +24,10 @@ const App: Component = () => {
           <div>...</div>
         </Match>
         <Match when={user() === false}>
-          <button onClick={loginGithub}>login with github</button>
+          <Grid>
+            <button onClick={loginGithub}>login with github</button>
+            <button onClick={loginGoogle}>login with google</button>
+          </Grid>
         </Match>
       </Switch>
     </div>

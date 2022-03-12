@@ -5,13 +5,13 @@ import db from "./db";
 import routes from "./routes";
 
 const app = fastify({
-  logger: true,
+  logger: false,
 })
   .register(fastifyCors)
   .register(db)
   .register(routes);
   
-app.listen(PORT, function (err) {
+app.listen(PORT, (err) => {
   if (err) {
     app.log.error(err);
     process.exit(1);

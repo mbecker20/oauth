@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "tsc && node build/main.js",
+    "start": "rm -r build && tsc && node build/main.js",
     "run-mongo": "docker run -d --name mongo -p 27017:27017 mongo:latest"
   },
   "devDependencies": {

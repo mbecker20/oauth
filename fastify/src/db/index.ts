@@ -10,7 +10,7 @@ declare module "fastify" {
 }
 
 const db = fp((app: FastifyInstance, _: {}, done: () => void) => {
-  mongoose.connect("mongodb://localhost:27017");
+  mongoose.connect("mongodb://localhost:27017/oauth");
   app.decorate("mongoose", mongoose)
 
   app.register(users);

@@ -10,10 +10,11 @@ declare module "fastify" {
 
 const users = fp((app: FastifyInstance, _: {}, done: () => void) => {
   const schema = new Schema({
-    username: { type: String, unique: true, index: true },
+    username: { type: String, index: true },
     email: String,
     avatar: String,
-    githubID: String,
+    githubID: { type: Number, index: true },
+    googleID: { type: String, index: true },
   });
 
   app.decorate("users", app.mongoose.model("User", schema));

@@ -1,16 +1,10 @@
 import axios from "axios";
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
-import fastifyOauth2, { OAuth2Namespace } from "fastify-oauth2";
-import { PORT, SECRETS } from "../config";
+import fastifyOauth2 from "fastify-oauth2";
+import { PORT, SECRETS } from "../../config";
 
-declare module "fastify" {
-  interface FastifyInstance {
-    github: OAuth2Namespace;
-  }
-}
-
-const oauth = fp((app: FastifyInstance, _: {}, done: () => void) => {
+const github = fp((app: FastifyInstance, _: {}, done: () => void) => {
   app.register(fastifyOauth2, {
     name: "github",
     scope: ["user:email"], // empty for only basic access to acct, ie info that is is already public about your acct.
@@ -30,7 +24,9 @@ const oauth = fp((app: FastifyInstance, _: {}, done: () => void) => {
   app.get("/login/github/callback", async (req, res) => {
     const token = await app.github.getAccessTokenFromAuthorizationCodeFlow(req);
     const profile = await getGithubProfile(token.access_token);
-    const existingUser = await app.users.findOne({ username: profile.username });
+    const existingUser = await app.users.findOne({
+      githubID: profile.githubID,
+    });
     if (existingUser) {
       const jwt = app.jwt.sign(
         { id: existingUser._id.toString() },
@@ -40,9 +36,7 @@ const oauth = fp((app: FastifyInstance, _: {}, done: () => void) => {
     } else {
       const email = await getGithubEmail(token.access_token);
       const createdUser = await app.users.create({
-        username: profile.username,
-        avatar: profile.avatar,
-        githubID: profile.id,
+        ...profile,
         email,
       });
       const jwt = app.jwt.sign(
@@ -65,13 +59,13 @@ async function getGithubProfile(token: string) {
     })
     .then(({ data }) => data);
   return {
-    username: profile.login,
-    id: profile.id,
-    avatar: profile.avatar_url,
+    username: profile.login as string,
+    githubID: profile.id as number,
+    avatar: profile.avatar_url as string,
   };
 }
 
-async function getGithubEmail(token: string): Promise<string | undefined> {
+async function getGithubEmail(token: string) {
   const emails = await axios
     .get("https://api.github.com/user/emails", {
       headers: {
@@ -79,7 +73,7 @@ async function getGithubEmail(token: string): Promise<string | undefined> {
       },
     })
     .then(({ data }) => data);
-  return emails[0]?.email;
+  return emails[0]?.email as string | undefined;
 }
 
-export default oauth;
+export default github;
