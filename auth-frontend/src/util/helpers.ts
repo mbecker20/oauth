@@ -1,5 +1,6 @@
-import { redirectTo, URL } from "..";
+import { client, redirectTo, URL } from "..";
 import { User } from "@oauth2/types";
+import axios from "axios";
 
 export function combineClasses(...classes: (string | undefined)[]) {
   return classes.filter((c) => (c ? true : false)).join(" ");
@@ -7,7 +8,8 @@ export function combineClasses(...classes: (string | undefined)[]) {
 
 export function getAuthProvider(user: User) {
   if (user.githubID) return "Github";
-  else if (user.googleID) return "Google"
+  else if (user.googleID) return "Google";
+  else return "Local";
 }
 
 export function getRedirectTo() {
@@ -35,4 +37,8 @@ export function loginGoogle() {
       redirectTo ? "/" + redirectTo.service : ""
     }`
   );
+}
+
+export function inPx(num: number) {
+  return `${num}px`;
 }

@@ -9,7 +9,9 @@
     "start-auth": "cd auth-backend && yarn start",
     "start-consumer": "cd consumer-backend && yarn start",
     "start-backends": "yarn start-auth & yarn start-consumer",
-    "build-frontends": "cd auth-frontend && yarn build & cd consumer-frontend && yarn build"
+    "build-frontends": "yarn build-auth-frontend & yarn build-consumer-frontend",
+    "build-auth-frontend": "cd auth-frontend && yarn build",
+    "build-consumer-frontend": "cd consumer-frontend && yarn build"
   },
   "workspaces": [
     "auth-backend",

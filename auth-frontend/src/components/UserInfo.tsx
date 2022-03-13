@@ -14,7 +14,9 @@ const UserInfo: Component<{ user: User; logout: () => void }> = (p) => {
           <img src={p.user.avatar} style={{ width: "2rem", height: "2rem" }} />
         </Show>
       </Flex>
-      <div>email: {p.user.email}</div>
+      <Show when={p.user.email}>
+        <div>email: {p.user.email}</div>
+      </Show>
       <button style={{ width: "100%" }} onClick={p.logout}>
         logout
       </button>

@@ -1,10 +1,9 @@
 import { Component, createEffect, createResource, Match, Switch } from "solid-js";
 import { client, redirectTo } from "../..";
 import styles from "./App.module.css";
-import { loginGithub, loginGoogle } from "../../util/helpers";
 import UserInfo from "../UserInfo";
-import Grid from "../util/layout/Grid";
 import { User } from "@oauth2/types"
+import Login from "../Login";
 
 const App: Component = () => {
   const [user, { mutate }] = createResource(() => client.getUser());
@@ -31,10 +30,7 @@ const App: Component = () => {
           <div>...</div>
         </Match>
         <Match when={user() === false}>
-          <Grid>
-            <button onClick={loginGithub}>login with github</button>
-            <button onClick={loginGoogle}>login with google</button>
-          </Grid>
+          <Login setUser={(user) => mutate(user as User)} />
         </Match>
       </Switch>
     </div>

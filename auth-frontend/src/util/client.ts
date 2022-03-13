@@ -22,8 +22,22 @@ export default class Client {
     }
 	}
 
+  async login(username: string, password: string) {
+    const jwt: string = await this.post("/login/local", { username, password });
+    this.token = jwt;
+    localStorage.setItem("access_token", this.token);
+    return await this.getUser();
+  }
+
+  async signup(username: string, password: string) {
+    const jwt: string = await this.post("/signup", { username, password });
+    this.token = jwt;
+    localStorage.setItem("access_token", this.token);
+    return await this.getUser();
+  }
+
   logout() {
-    window.localStorage.removeItem("access_token");
+    localStorage.removeItem("access_token");
     this.token = null;
   }
 

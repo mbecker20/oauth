@@ -7,7 +7,8 @@ export function combineClasses(...classes: (string | undefined)[]) {
 
 export function getAuthProvider(user: User) {
   if (user.githubID) return "Github";
-  else if (user.googleID) return "Google"
+  else if (user.googleID) return "Google";
+  else return "Local";
 }
 
 export function manualLogin() {

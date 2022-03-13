@@ -15,8 +15,15 @@ const UserInfo: Component<{ user: User }> = (p) => {
           <img src={p.user.avatar} style={{ width: "2rem", height: "2rem" }} />
         </Show>
       </Flex>
-      <div>email: {p.user.email}</div>
-      <button style={{ width: "100%" }} onClick={() => location.replace(AUTH_REDIRECT)}>refresh user</button>
+      <Show when={p.user.email}>
+        <div>email: {p.user.email}</div>
+      </Show>
+      <button
+        style={{ width: "100%" }}
+        onClick={() => location.replace(AUTH_REDIRECT)}
+      >
+        refresh user
+      </button>
       <button style={{ width: "100%" }} onClick={() => client.logout()}>
         logout
       </button>
