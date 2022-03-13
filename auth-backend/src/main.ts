@@ -4,17 +4,15 @@ import { PORT } from "./config";
 import db from "./db";
 import routes from "./routes";
 
-const app = fastify({
-  logger: false,
-})
+const app = fastify({ logger: false })
   .register(fastifyCors)
   .register(db)
   .register(routes);
-  
+
 app.listen(PORT, (err, address) => {
   if (err) {
     app.log.error(err);
     process.exit(1);
   }
-  console.log(`auth-backend listening at ${address}`)
+  console.log(`auth-backend listening at ${address}`);
 });
