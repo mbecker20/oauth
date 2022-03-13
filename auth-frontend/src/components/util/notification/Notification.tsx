@@ -28,7 +28,7 @@ const Notif: Component<{
   const [show, set] = createSignal(false);
   setTimeout(() => set(true), 100);
   setTimeout(() => set(false), NOTIF_TIMEOUT - 1000);
-	
+
   return (
     <div
       class={s.Notification}
@@ -40,7 +40,7 @@ const Notif: Component<{
       }}
     >
       <div>{p.notif.message}</div>
-      <button onClick={p.onClose}>
+      <button style={{ "background-color": "transparent" }} onClick={p.onClose}>
         <Icon type="cross" alt="close" width="1rem" />
       </button>
     </div>

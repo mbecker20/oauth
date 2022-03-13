@@ -3,6 +3,7 @@ import { getAuthProvider } from "../util/helpers";
 import Flex from "./util/layout/Flex";
 import Grid from "./util/layout/Grid";
 import { User } from "@oauth2/types";
+import { pushNotification } from "..";
 
 const UserInfo: Component<{ user: User; logout: () => void }> = (p) => {
   return (
@@ -17,7 +18,10 @@ const UserInfo: Component<{ user: User; logout: () => void }> = (p) => {
       <Show when={p.user.email}>
         <div>email: {p.user.email}</div>
       </Show>
-      <button style={{ width: "100%" }} onClick={p.logout}>
+      <button style={{ width: "100%" }} onClick={() => {
+        p.logout();
+        pushNotification("ok", "logged out");
+      }}>
         logout
       </button>
     </Grid>
