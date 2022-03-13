@@ -40,7 +40,13 @@ const jwt = fp((app: FastifyInstance, _: {}, done: () => void) => {
   app.get("/user", { onRequest: [app.auth] }, async (req, res) => {
     const id = req.user.id;
     const user = await app.users.findById(id);
-    res.send(user);
+    if (user) {
+      user.password = undefined;
+      res.send(user);
+    } else {
+      res.status(400);
+      res.send("User could not be found");
+    }
   });
 
   app.get("/auth_jwt", { onRequest: [app.auth] }, async (req, res) => {

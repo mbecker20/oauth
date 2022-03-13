@@ -5,7 +5,13 @@ import auth from "../auth";
 const user = fp((app: FastifyInstance, _: {}, done: () => void) => {
 	app.get("/user", { onRequest: [auth] }, async (req, res) => {
 		const user = await app.users.findById(req.userID);
-		res.send(user);
+    if (user) {
+      delete user.password;
+      res.send(user);
+    } else {
+      res.status(400);
+      res.send("User could not be found");
+    }
 	});
 	done();
 });

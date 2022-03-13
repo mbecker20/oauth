@@ -5,6 +5,7 @@ import { Schema } from "mongoose";
 const users = fp((app: FastifyInstance, _: {}, done: () => void) => {
   const schema = new Schema({
     username: { type: String, index: true },
+    password: String,
     email: String,
     avatar: String,
     githubID: { type: Number, index: true },
