@@ -17,7 +17,7 @@ const App: Component = () => {
 
   createEffect(() => {
     if (user() === false) {
-      location.replace(AUTH_REDIRECT);
+      // location.replace(AUTH_REDIRECT);
     }
   });
 
