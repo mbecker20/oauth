@@ -7,7 +7,7 @@ import Client from './util/client';
 import { getRedirectTo } from './util/helpers';
 import makeNotifications from './components/util/notification/Notifications';
 
-export const URL = "http://localhost:2020";
+export const URL = location.href.slice(0, location.href.length - 1);
 export const client = new Client(URL);
 export const redirectTo = getRedirectTo();
 
