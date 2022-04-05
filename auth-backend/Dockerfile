@@ -2,7 +2,7 @@ FROM node:alpine
 
 WORKDIR /oauth
 
-COPY ./package.json ./
+COPY ./build/package.json ./
 
 RUN npm i
 

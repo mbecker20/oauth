@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "tsc && node build/main.js",
-    "build": "tsc"
+    "build": "tsc && node post-build.mjs"
   },
   "devDependencies": {
     "@types/mongoose": "^5.11.97",
