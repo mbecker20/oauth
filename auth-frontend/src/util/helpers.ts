@@ -19,7 +19,7 @@ export function getRedirectTo() {
     if (redirect === "consumer") {
       return {
         service: "consumer",
-        url: "http://localhost:3000"
+        url: URL
       }
     }
   }
