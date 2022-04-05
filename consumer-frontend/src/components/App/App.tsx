@@ -16,6 +16,7 @@ const App: Component = () => {
   const [user] = createResource(() => client.getUser());
 
   createEffect(() => {
+    console.log(user());
     if (user() === false) {
       // location.replace(AUTH_REDIRECT);
     }
