@@ -28,7 +28,7 @@ export default class Client {
       try {
         return await this.get("/user");
       } catch {
-        this.logout();
+        // this.logout();
         return false;
       }
     } else {
