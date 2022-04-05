@@ -1,6 +1,5 @@
-import { client, redirectTo, URL } from "..";
+import { redirectTo, URL } from "..";
 import { User } from "@oauth2/types";
-import axios from "axios";
 
 export function combineClasses(...classes: (string | undefined)[]) {
   return classes.filter((c) => (c ? true : false)).join(" ");
@@ -19,7 +18,7 @@ export function getRedirectTo() {
     if (redirect === "consumer") {
       return {
         service: "consumer",
-        url: URL
+        url: "http://localhost:4000"
       }
     }
   }
