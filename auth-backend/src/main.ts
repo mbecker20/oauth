@@ -9,7 +9,7 @@ const app = fastify({ logger: false })
   .register(db)
   .register(routes);
 
-app.listen(PORT, (err, address) => {
+app.listen(PORT, "0.0.0.0", (err, address) => {
   if (err) {
     app.log.error(err);
     process.exit(1);

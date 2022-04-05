@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "tsc && node build/main.js",
+    "build": "tsc",
     "run-mongo": "docker run -d --name mongo -p 27017:27017 mongo:latest"
   },
   "devDependencies": {

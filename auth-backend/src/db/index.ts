@@ -3,6 +3,7 @@ import fp from "fastify-plugin";
 import mongoose, { Model } from "mongoose"
 import users from "./users";
 import { User } from "@oauth2/types";
+import { MONGO_URL } from "../config";
 
 declare module "fastify" {
   interface FastifyInstance {
@@ -12,7 +13,7 @@ declare module "fastify" {
 }
 
 const db = fp((app: FastifyInstance, _: {}, done: () => void) => {
-  mongoose.connect("mongodb://localhost:27017/oauth");
+  mongoose.connect(MONGO_URL);
 
   app
     .decorate("mongoose", mongoose)

@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "tsc && node build/main.js"
+    "start": "tsc && node build/main.js",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/mongoose": "^5.11.97",
