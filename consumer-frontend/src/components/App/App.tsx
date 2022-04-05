@@ -5,7 +5,7 @@ import {
   Match,
   Switch,
 } from "solid-js";
-import { AUTH_REDIRECT, client } from "../..";
+import { client } from "../..";
 import styles from "./App.module.css";
 import UserInfo from "../UserInfo";
 import Grid from "../util/layout/Grid";
