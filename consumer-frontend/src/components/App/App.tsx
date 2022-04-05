@@ -5,7 +5,7 @@ import {
   Match,
   Switch,
 } from "solid-js";
-import { client } from "../..";
+import { AUTH_REDIRECT, client } from "../..";
 import styles from "./App.module.css";
 import UserInfo from "../UserInfo";
 import Grid from "../util/layout/Grid";
@@ -18,7 +18,7 @@ const App: Component = () => {
   createEffect(() => {
     console.log(user());
     if (user() === false) {
-      // location.replace(AUTH_REDIRECT);
+      location.replace(AUTH_REDIRECT);
     }
   });
 
