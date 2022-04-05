@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./components/App/App";
 import Client from "./util/client";
 
-export const URL = location.origin;
+export const URL = "http://localhost:4000";
 export const AUTH_REDIRECT = "http://localhost:2020/?redirect=consumer";
 export const client = new Client(URL);
 
